@@ -9,7 +9,7 @@ import config
 df = pd.read_csv(config.SOURCE)
 df.to_csv(config.CURRENT, index=False)
 
-X = df[[config.FEATURES]]
+X = df[config.FEATURES]
 y = df[config.TARGET]
 
 X_train, X_test, y_train, y_test = train_test_split(
