@@ -5,8 +5,6 @@ from evidently.metric_preset import DataDriftPreset
 import config
 
 reference = pd.read_csv(config.CURRENT)
-reference.to_csv('data/reference/last_reference_used.csv', index=False)
-
 current = pd.read_csv(config.SOURCE)
 
 data_drift_report = Report(metrics=[DataDriftPreset()])
