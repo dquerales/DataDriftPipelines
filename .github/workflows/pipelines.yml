@@ -1,0 +1,29 @@
+name: Trigger workflows
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  trigger-second-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run first workflow
+        id: run-first-workflow
+        uses: ./.github/workflows/archive/data_drift_pipelines.yml # Replace with the path to your first workflow
+
+      - name: Check if flag is set to true
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (github.context.outputs['run-first-workflow'] === 'true') {
+              core.setOutput('run_second_workflow', true);
+            } else {
+              core.setOutput('run_second_workflow', false);
+            }
+      - name: Trigger second workflow (if flag is true)
+        uses: ./.github/workflows/archive/train-model.yml # Replace with the path to your second workflow
+        if: steps.check-if-flag-is-set-to-true.outputs.run_second_workflow == true
