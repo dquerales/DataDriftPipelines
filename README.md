@@ -5,7 +5,7 @@
 ## Usage
 
 1. Upload reference and current data.
-2. Run data_drift_pipelines to dectect data drifting
+2. Run data_drift_pipelines to detect data drifting
 3. Run train_model.py if a new model is needed.
 
 # Contact
